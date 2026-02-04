@@ -1,38 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:realtime_chat_app/auth/auth_service.dart';
-import 'package:realtime_chat_app/main.dart';
 import 'package:realtime_chat_app/widgets/my_button.dart';
 import 'package:realtime_chat_app/widgets/my_textfield.dart';
 
-class LoginPage extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   // email and password controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
-  // tap to go to register
+  // tap to go to login
   final void Function()? onTap;
 
-  LoginPage({super.key, required this.onTap});
+  void register() {}
 
-  // login method
-  void login(BuildContext context) async {
-    //auth service
-    final authService = AuthService();
-    //try login
-    try {
-      await authService.signInWithEmailPassword(
-        _emailController.text,
-        _passwordController.text,
-      );
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(title: Text(e.toString())),
-      );
-    }
-
-    //catch any errors
-  }
+  RegisterPage({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +34,7 @@ class LoginPage extends StatelessWidget {
 
             //welcome back message
             Text(
-              "Welcome back, you've been missed!",
+              "Let's create an account for you",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
                 fontSize: 16,
@@ -73,11 +54,18 @@ class LoginPage extends StatelessWidget {
               controller: _passwordController,
               obscureText: true,
             ),
+            const SizedBox(height: 10),
+
+            // confirm password textfield
+            MyTextField(
+              hintText: "Confirm Password",
+              controller: _confirmPasswordController,
+            ),
 
             const SizedBox(height: 25),
 
             // login button
-            MyButton(text: "Login", onTap: () => login(context)),
+            MyButton(text: "Register", onTap: register),
             const SizedBox(height: 25),
 
             // register now
@@ -85,7 +73,7 @@ class LoginPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Not a member? ",
+                  "Already have an account? ",
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -93,12 +81,12 @@ class LoginPage extends StatelessWidget {
                 GestureDetector(
                   onTap: onTap,
                   child: Text(
-                    "Register now",
+                    "Login now",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary,
-                    ),
                   ),
+                ),
                 ),
               ],
             ),
