@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realtime_chat_app/services/auth/auth_service.dart';
 import 'package:realtime_chat_app/widgets/my_button.dart';
 import 'package:realtime_chat_app/widgets/my_textfield.dart';
 
@@ -6,12 +7,39 @@ class RegisterPage extends StatelessWidget {
   // email and password controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   // tap to go to login
   final void Function()? onTap;
 
-  void register() {}
+  // register method
+  void register(BuildContext context) {
+    // get auth service
+    final authService = AuthService();
+
+    // if passwords match
+    if (_passwordController.text == _confirmPasswordController.text) {
+      try {
+        authService.signUpwithEmailPassword(
+          _emailController.text,
+          _passwordController.text,
+        );
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(title: Text(e.toString())),
+        );
+      }
+    }
+    // if password dont match
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(title: Text("Passwords don't match")),
+      );
+    }
+  }
 
   RegisterPage({super.key, required this.onTap});
 
@@ -65,7 +93,7 @@ class RegisterPage extends StatelessWidget {
             const SizedBox(height: 25),
 
             // login button
-            MyButton(text: "Register", onTap: register),
+            MyButton(text: "Register", onTap: () => register(context)),
             const SizedBox(height: 25),
 
             // register now
@@ -85,8 +113,8 @@ class RegisterPage extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
-                ),
                 ),
               ],
             ),
