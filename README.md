@@ -5,9 +5,10 @@ A modern, sleek, and high-performance realtime chat application built with **Flu
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="assets/screenshots/login.png" width="280" alt="Login Page">
-  <img src="assets/screenshots/home.png" width="280" alt="Home Page">
-  <img src="assets/screenshots/chat.png" width="280" alt="Chat Page">
+  <img src="assets/screenshots/login.png" width="230" alt="Login Page">
+  <img src="assets/screenshots/home.png" width="230" alt="Home Page">
+  <img src="assets/screenshots/chat.png" width="230" alt="Chat Page">
+  <img src="assets/screenshots/drawer.png" width="230" alt="Menu Drawer">
 </p>
 
 ## ✨ Features
